@@ -1,0 +1,83 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+{% block content %}
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-xl-4 col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row mb-3 align-items-center">
+                <div class="col">
+                  <h4>Dados do Usuário</h4>
+                </div>
+                <div class="col-auto"> </div>
+              </div>
+              
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item px-0">
+                  <div class="row align-items-start">
+                    <div class="col">
+                      <h4 class="mb-0">Nome:</h4>
+                    </div>
+                    <div class="col">
+                        <h4><span class="mb-0"> {{ request.user.get_full_name|default:request.user.username }}</span></h4>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item px-0">
+                  <div class="row align-items-start">
+                    <div class="col">
+                      <h4 class="mb-0">E-mail:</h4>
+                    </div>
+                    <div class="col">
+                        <h4><span class="mb-0"> {{ request.user.get_full_name|default:request.user.email }}</span></h4>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item px-0">
+                  <div class="row align-items-start">
+                    <div class="col">
+                      <h4 class="mb-0">Ultimo acesso:</h4>
+                    </div>
+                    <div class="col">
+                        <h4><span class="mb-0"> {{ request.user.get_full_name|default:request.user.last_login }}</span></h4>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item px-0">
+                  <div class="row align-items-start">
+                    <div class="col">
+                      <h4 class="mb-0">Senha:</h4>
+                    </div>
+                    <div class="col">
+                        <h4><span class="mb-0"> {{ request.user.get_full_name|default:request.user.password }}</span></h4>
+                    </div>
+                  </div>
+                </li>
+                <li class="">
+                    <a href="{% url 'admin:password_change' %}" class="btn btn-primary btn-sm">Mudar a senha</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+{% endblock content %}
+
+{% block extra_js %}
+  <!-- Apex Chart -->
+  <script src="{% static 'assets/js/plugins/apexcharts.min.js' %}"></script>
+  <script src="{% static 'assets/js/pages/dashboard-default.js' %}"></script>
+  <!-- [Page Specific JS] end -->
+{% endblock extra_js %}

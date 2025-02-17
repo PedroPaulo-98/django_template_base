@@ -22,17 +22,18 @@
                             <a href="{{ header.url_toggle }}" class="fa {% if header.ascending %}fa-angle-up{% else %}fa-angle-down{% endif %}" title="{% trans "Toggle sorting" %}"></a>&nbsp;&nbsp;
                         {% endif %}
                     {% endif %}
+                    
 
                     {% if header.sortable %}
                         <a href="{{ header.url_primary }}">{{ header.text|capfirst }}</a>
                     {% else %}
-                        <!--{% if header.class_attrib == ' class="action-checkbox-column"' %}
+                        {% if header.class_attrib == ' class="action-checkbox-column"' %}
                             <div class="form-check">
                                 <label class="form-check-label">
                                     {{ header.text|capfirst }}
                                 </label>
                             </div>
-                        {% else %}-->
+                        {% else %}
                             <span>{{ header.text|capfirst }}</span>
                         {% endif %}
                     {% endif %}
@@ -48,13 +49,13 @@
             <tr>
                 {% for item in result %}
                     {% if 'checkbox' in item %}
-                        <!--<td>
+                        <td>
                             <div class="form-check">
                                 <label class="form-check-label">
                                     {{ item|checkbox|safe }}
                                 </label>
                             </div>
-                        </td>-->
+                        </td>
                     {% else %}
                         <span class="fw-normal">{{ item }}</span>
                     {% endif %}

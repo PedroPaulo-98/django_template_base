@@ -2,12 +2,42 @@ from django.db import models
 from django.contrib.auth.models import User # type: ignore
 from django.utils.translation import gettext as _t, gettext_lazy as _
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 
-#Validação de Data
-def validate_future_date(value):
-    if value.year < 2023:
-        raise ValidationError('A data não pode ser no passado.')
+#class User(AbstractUser):
+#    cpf = models.CharField(
+#        max_length=14, 
+#        unique=True, 
+#        validators=[RegexValidator(r'^\d{3}\.\d{3}\.\d{3}-\d{2}$', message="CPF inválido. Formato esperado: 000.000.000-00")]
+#    )
+#
+#    # Adicione related_name únicos para evitar conflitos
+#    groups = models.ManyToManyField(
+#        Group,
+#        verbose_name='groups',
+#        blank=True,
+#        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+#        related_name="custom_user_set",  # Nome único para evitar conflitos
+#        related_query_name="user",
+#    )
+#    user_permissions = models.ManyToManyField(
+#        Permission,
+#        verbose_name='user permissions',
+#        blank=True,
+#        help_text='Specific permissions for this user.',
+#        related_name="custom_user_set",  # Nome único para evitar conflitos
+#        related_query_name="user",
+#    )
+#
+#    def __str__(self):
+#        return self.username
+#
+##Validação de Data
+#def validate_future_date(value):
+#    if value.year < 2023:
+#        raise ValidationError('A data não pode ser no passado.')
     
 
 #------------------------------------------------------------------------------------------------------

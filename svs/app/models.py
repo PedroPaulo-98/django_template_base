@@ -99,7 +99,7 @@ class Illnesses (models.Model):
 #semana epidemiologica
 class Epidemiological_weeks (models.Model):
         
-    se = models.IntegerField("SE (semana epidemiologica)")
+    se = models.CharField("SE (semana epidemiologica)",max_length=150)
     year = models.IntegerField("ano")
 
     def __int__(self):

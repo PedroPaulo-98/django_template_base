@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import City, Hospital, Illnesses, Epidemiological_weeks, Hospitalization_Information, Quantity_hospital, User
+from .models import City, Hospital, Illnesses, Epidemiological_weeks, Hospitalization_Information, Quantity_hospital
 from django.contrib.admin import ModelAdmin, TabularInline, register
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model

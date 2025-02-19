@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
 <head>
-  <title>{% block title %}{% endblock title %} | Berry Bootstrap 5 Admin Template</title>
+  <title>{% block title %}{% endblock title %} | Sistema Template Django</title>
 
   <link rel="canonical" href="https://app-generator.dev/product/berry-dashboard/django/" />
 
@@ -11,10 +11,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta
     name="description"
-    content="Berry is made using Bootstrap 5 design framework. Download the free admin template & use it for your project."
+    content="Sistema Template Django"
   />
   <meta name="keywords" content="Berry, Dashboard UI Kit, Bootstrap 5, Admin Template, Admin Dashboard, CRM, CMS, Bootstrap Admin Template" />
   <meta name="author" content="CodedThemes" />
+  <script src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'admin/js/prepopulate_init.js' %}"></script>
 
   {% include 'includes/styles.html' %}
 

@@ -1,0 +1,17 @@
+[
+    {
+      "model": "administration.CustomUser",
+      "pk": 1,
+      "fields": {
+        "username": "pedro",
+        "email": "pedro@pedro.com",
+        "cpf": "024-682-832-36",
+        "is_superuser": "1",
+        "is_staff": "1",
+        "is_active": "1",
+        "first_name": "John",
+        "last_name": "Snow",
+        "password": "pbkdf2_sha256$600000$loS9XEC0JTea8poDo8BTdi$1A1wqgBIcS8gFVlu1LNc5HICx4h4FR2QbQP25S5VroE="
+      }
+    }
+  ]

@@ -18,12 +18,17 @@
         
         <li class="pc-item">
           {% if request.user.is_superuser %}
-          <a href="{% url 'admin:index' %}" class="pc-link">
+          <a href="{% url 'dashboard' %}" class="pc-link">
           {% else %}
-          <a href="/" class="pc-link">
+          <a href="{% url 'dashboard' %}" class="pc-link">
           {% endif %}
             <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
             <span class="pc-mtext">Dashboard</span></a>
+        </li>
+
+        <li class="pc-item pc-caption">
+          <label>Sistema</label>
+          <i class="ti ti-news"></i>
         </li>
 
         {% admin_get_menu as app_list %}
@@ -80,6 +85,33 @@
             {% endif %}
           </ul>
         </li>
+
+
+        <li class="pc-item pc-caption">
+          <label>APIs</label>
+          <i class="ti ti-news"></i>
+        </li>
+
+        <li class="pc-item">
+          {% if request.user.is_superuser %}
+          <a href="{% url 'hospitalizations_by_month' %}" class="pc-link">
+          {% else %}
+          <a href="{% url 'hospitalizations_by_month' %}" class="pc-link">
+          {% endif %}
+            <span class="pc-micon"><i class="ti ti-server"></i></span>
+            <span class="pc-mtext">API de entrada por mês</span></a>
+        </li>
+        <li class="pc-item">
+          {% if request.user.is_superuser %}
+          <a href="{% url 'hospitalizations_by_sex' %}" class="pc-link">
+          {% else %}
+          <a href="{% url 'hospitalizations_by_sex' %}" class="pc-link">
+          {% endif %}
+            <span class="pc-micon"><i class="ti ti-server"></i></span>
+            <span class="pc-mtext">API de entrada por sexo</span></a>
+        </li>
+
+
     </div>
   </div>
 </nav>

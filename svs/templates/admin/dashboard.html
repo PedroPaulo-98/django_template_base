@@ -1,0 +1,136 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+
+{% block content %}
+  <!-- [ Main Content ] start -->
+  <div class="pc-container">
+    <div class="pc-content">
+      <!-- [ Main Content ] start -->
+      <div class="row">
+        <!-- [ sample-page ] start -->
+        <div class="col-xl-12 col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row mb-3 align-items-center">
+                <div class="col">
+                  <small>Total de Internações</small>
+                  <h3 id="total-hospitalizations">0</h3>
+                </div>
+                <div class="col-auto">
+                  <select class="form-select p-r-35" id="time-filter">
+                    <option value="1">Último Mês</option>
+                    <option value="6">Últimos 6 Meses</option>
+                    <option value="12" selected>Último Ano</option>
+                  </select>
+                </div>
+              </div>
+              <div id="growthchart"></div>
+            </div>
+          </div>
+        </div>
+        <!-- [ sample-page ] end -->
+      </div>
+      <!-- [ Main Content ] end -->
+    </div>
+  </div>
+  <!-- [ Main Content ] end -->
+{% endblock content %}
+
+{% block extra_js %}
+  <!-- Apex Chart -->
+  <script src="{% static 'assets/js/plugins/apexcharts.min.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const timeFilter = document.getElementById('time-filter');
+      let chart;
+
+      // Função para carregar os dados da API
+      function loadData(months) {
+        fetch(`/api/hospitalizations-by-month/?months=${months}`)
+          .then(response => response.json())
+          .then(data => {
+            // Atualiza o total de internações
+            document.getElementById('total-hospitalizations').textContent = data.totals.reduce((a, b) => a + b, 0);
+
+            // Configurações do gráfico
+            const options = {
+              chart: {
+                type: 'bar',
+                height: 350,
+                stacked: true,
+                toolbar: {
+                  show: false
+                }
+              },
+              plotOptions: {
+                bar: {
+                  horizontal: false,
+                  columnWidth: '50%'
+                }
+              },
+              dataLabels: {
+                enabled: false
+              },
+              colors: ['#2196f3', '#673ab7', '#e1d8f1', '#d3eafd'],
+              series: [
+                {
+                  name: '0 a 28 dias',
+                  data: data.categories.t0_to_28_days
+                },
+                {
+                  name: '29 dias a 1 ano',
+                  data: data.categories.t29d_to_1y
+                },
+                {
+                  name: '1 a 5 anos',
+                  data: data.categories.t1y_to_5y
+                },
+                {
+                  name: '6 a 10 anos',
+                  data: data.categories.t6y_to_10y
+                },
+                {
+                  name: '11 a 17 anos',
+                  data: data.categories.t11y_to_17y
+                },
+                {
+                  name: 'adulto',
+                  data: data.categories.adult
+                },
+                {
+                  name: 'idoso',
+                  data: data.categories.old
+                },
+              ],
+              xaxis: {
+                categories: data.labels
+              },
+              grid: {
+                strokeDashArray: 4
+              },
+              tooltip: {
+                theme: 'dark'
+              }
+            };
+
+            if (chart) {
+              chart.updateOptions(options);
+            } else {
+              chart = new ApexCharts(document.querySelector('#growthchart'), options);
+              chart.render();
+            }
+          });
+      }
+
+      // Carrega os dados iniciais (último ano)
+      loadData(12);
+
+      // Atualiza os dados quando o filtro é alterado
+      timeFilter.addEventListener('change', function () {
+        loadData(parseInt(this.value));
+      });
+    });
+  </script>
+{% endblock extra_js %}

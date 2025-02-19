@@ -30,7 +30,7 @@ from django.contrib.auth import get_user_model
 
 class quantidade_hospitalsInLine(TabularInline):
     model = Quantity_hospital
-    extra = 1
+    #extra = 1
     readonly_fields = ['insert_in']
 
 
@@ -61,6 +61,13 @@ class VacinometroAdmin(ModelAdmin): # type: ignore
 @register(Hospitalization_Information)
 class VacinometroAdmin(ModelAdmin): # type: ignore
     icon_name = 'local_hospital'
-    extra = 1
+    #extra = 1
     inlines = [quantidade_hospitalsInLine]
+    actions = None
+
+@register(Quantity_hospital)
+class VacinometroAdmin(ModelAdmin): # type: ignore
+    icon_name = 'local_hospital'
+    list_display = ('insert_in', 'hospital', 'clinic_UTI')
+    #extra = 1
     actions = None

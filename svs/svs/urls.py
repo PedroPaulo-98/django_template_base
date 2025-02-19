@@ -17,11 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
+from app.views import get_hospitalizations_by_month
+
 
 def user_settings_view(request):
     return render(request, 'admin/user.html')
+def dashboard_view(request):
+    return render(request, 'admin/dashboard.html')
 
 urlpatterns = [
     path('user/', user_settings_view, name='user-settings'),
+    path('dashboard/', dashboard_view, name='dashboard'),
+     path('api/hospitalizations-by-month/', get_hospitalizations_by_month, name='hospitalizations_by_month'),
     path('', admin.site.urls),
 ]

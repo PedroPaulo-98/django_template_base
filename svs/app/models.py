@@ -102,7 +102,7 @@ class Epidemiological_weeks (models.Model):
     se = models.CharField("SE (semana epidemiologica)",max_length=150)
     year = models.IntegerField("ano")
 
-    def __int__(self):
+    def __str__(self):
         return self.se
     
     class Meta:
@@ -115,7 +115,7 @@ class Epidemiological_weeks (models.Model):
 #Informações de Internações 
 class Hospitalization_Information (models.Model):
     info = models.CharField("dados das internações",max_length=150, null=True, blank=True,)
-    date = models.DateField("Data", null=True, blank=True)
+    date = models.DateField("Data", default=timezone.now)
     se = models.ForeignKey(Epidemiological_weeks, on_delete=models.CASCADE, verbose_name="SE")
     illnesses = models.ForeignKey(Illnesses, on_delete=models.CASCADE, verbose_name="Doença")
 
@@ -151,12 +151,12 @@ class Quantity_hospital (models.Model):
     t1y_to_5y_female = models.IntegerField("Mulher de 1 a 5 anos", default=0)
     t6y_to_10y_male = models.IntegerField("Homem de 6 a 10 anos", default=0)
     t6y_to_10y_female = models.IntegerField("Mulher de 6 a 10 anos", default=0)
-    t11y_to_17y_male = models.IntegerField("Total do dia", default=0)
-    t11y_to_17y_female = models.IntegerField("Total do dia", default=0)
-    adult_male = models.IntegerField("Total do dia", default=0)
-    adult_female = models.IntegerField("Total do dia", default=0)
-    old_male = models.IntegerField("Total do dia", default=0)
-    old_female = models.IntegerField("Total do dia", default=0)
+    t11y_to_17y_male = models.IntegerField("Homem de 11 a 17 anos", default=0)
+    t11y_to_17y_female = models.IntegerField("Mulher de 11 a 17 anos", default=0)
+    adult_male = models.IntegerField("Homem Adulto", default=0)
+    adult_female = models.IntegerField("Mulher Adulta", default=0)
+    old_male = models.IntegerField("Homem Idoso", default=0)
+    old_female = models.IntegerField("Mulher Idosa", default=0)
 
     #def __date__(self):
     #    return self.internacao_id

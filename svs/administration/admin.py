@@ -9,7 +9,7 @@ class UserAdmin(BaseUserAdmin):
     add_form = CustomUserCreationForm
 
     fieldsets = (
-        ("Personal info", {"fields": ("username", "cpf", "first_name", "last_name", "email", "password")}),
+        ("Personal info", {"fields": ("username", "cpf", "first_name", "last_name", "email", "photo", "password")}),
         ("Permissions", {"fields": ("is_active", "is_staff", "is_superuser", "user_permissions")}),
         ("Login information's", {"fields": ("last_login", "date_joined")}),
         ("Group Permissions", {"fields": ("groups",)}),

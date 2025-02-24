@@ -13,6 +13,7 @@
         <div class="col-xl-12 col-md-12">
           <div class="card">
             <div class="card-body">
+              <h1>Total de internações por mês</h1>
               <div class="row mb-3 align-items-center">
                 <div class="col">
                   <small>Total de Internações</small>
@@ -34,6 +35,7 @@
         <div class="col-xl-12 col-md-12">
             <div class="card">
               <div class="card-body">
+                <h1>Total de internações por sexo no mês</h1>
                 <div class="row mb-3 align-items-center">
                   <div class="col-auto">
                     <select class="form-select p-r-35" id="time-filter">
@@ -63,6 +65,33 @@
                 <div id="growthchartday"></div>
               </div>
             </div>
+
+<hr>
+
+            <div class="col-xl-12 col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <h1>Total de internações por dia</h1>
+                  <div class="row mb-3 align-items-center">
+                    <div class="col">
+                      <small>Total de Internações</small>
+                      <h3 id="total-hospitalizations">0</h3>
+                    </div>
+                    <div class="col-auto">
+                      <select class="form-select p-r-35" id="time-filter">
+                        <option value="7">Últimos 7 Dias</option>
+                        <option value="30" selected>Últimos 30 Dias</option>
+                        <option value="365">Último Ano</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div id="growthchartday2"></div>
+                </div>
+              </div>
+            </div>
+
+
+
         </div>
         <!-- [ sample-page ] end -->
       </div>
@@ -336,5 +365,85 @@
         loadData(parseInt(this.value));
       });
     });
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const timeFilter = document.getElementById('time-filter');
+      let chart;
+
+      // Função para carregar os dados da API
+      function loadData(days) {
+        fetch(`/api/hospitalizations_by_day2/?days=${days}`)
+          .then(response => response.json())
+          .then(data => {
+            // Atualiza o total de internações
+            document.getElementById('total-hospitalizations').textContent = data.totals.reduce((a, b) => a + b, 0);
+
+            // Configurações do gráfico
+            const options = {
+              chart: {
+                type: 'line',
+                height: 350,
+                stacked: true,
+                toolbar: {
+                  show: false
+                }
+              },
+              plotOptions: {
+                bar: {
+                  horizontal: false,
+                  columnWidth: '50%'
+                }
+              },
+              dataLabels: {
+                enabled: false
+              },
+              colors: ['#2196f3', '#673ab7', '#e1d8f1', '#d3eafd'],
+              series: [
+                {
+                  name: 'Total',
+                  data: data.totals
+                },
+              ],
+              xaxis: {
+                categories: data.labels
+              },
+              grid: {
+                strokeDashArray: 4
+              },
+              tooltip: {
+                theme: 'dark'
+              }
+            };
+
+            if (chart) {
+              chart.updateOptions(options);
+            } else {
+              chart = new ApexCharts(document.querySelector('#growthchartday2'), options);
+              chart.render();
+            }
+          });
+      }
+
+      // Carrega os dados iniciais (últimos 30 dias)
+      loadData(30);
+
+      // Atualiza os dados quando o filtro é alterado
+      timeFilter.addEventListener('change', function () {
+        loadData(parseInt(this.value));
+      });
+    });
+
+
+
+
+
+
+
+
+
   </script>
 {% endblock extra_js %}

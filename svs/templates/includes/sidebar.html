@@ -25,6 +25,28 @@
             <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
             <span class="pc-mtext">Dashboard</span></a>
         </li>
+        <li class="pc-item">
+          {% if request.user.is_superuser %}
+          <a href="{% url 'dashboardday' %}" class="pc-link">
+          {% else %}
+          <a href="{% url 'dashboardday' %}" class="pc-link">
+          {% endif %}
+            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+            <span class="pc-mtext">Dashboard por dia</span></a>
+        </li>
+
+        <li class="pc-item">
+          {% if request.user.is_superuser %}
+          <a href="{% url 'dashboardmouth' %}" class="pc-link">
+          {% else %}
+          <a href="{% url 'dashboardmouth' %}" class="pc-link">
+          {% endif %}
+            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+            <span class="pc-mtext">Dashboard por mês</span></a>
+        </li>
+        
+
+
 
         <li class="pc-item pc-caption">
           <label>Sistema</label>
@@ -92,23 +114,24 @@
           <i class="ti ti-news"></i>
         </li>
 
-        <li class="pc-item">
-          {% if request.user.is_superuser %}
-          <a href="{% url 'hospitalizations_by_month' %}" class="pc-link">
-          {% else %}
-          <a href="{% url 'hospitalizations_by_month' %}" class="pc-link">
-          {% endif %}
-            <span class="pc-micon"><i class="ti ti-server"></i></span>
-            <span class="pc-mtext">API de entrada por mês</span></a>
-        </li>
-        <li class="pc-item">
-          {% if request.user.is_superuser %}
-          <a href="{% url 'hospitalizations_by_sex' %}" class="pc-link">
-          {% else %}
-          <a href="{% url 'hospitalizations_by_sex' %}" class="pc-link">
-          {% endif %}
-            <span class="pc-micon"><i class="ti ti-server"></i></span>
-            <span class="pc-mtext">API de entrada por sexo</span></a>
+        <li class="pc-item pc-hasmenu">
+          <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-server"></i></span><span
+              class="pc-mtext">Lista</span><span class="pc-arrow"><i class="ti ti-chevron-right"></i></span></a>
+          <ul class="pc-submenu">
+            {% if request.user.is_superuser %}
+              <li class="pc-item"><a class="pc-link" href="{% url 'hospitalizations_by_month' %}">API de entrada por mês</a></li>
+              <li class="pc-item"><a class="pc-link" href="{% url 'hospitalizations_by_day' %}">API de entrada por dia</a></li>
+              <li class="pc-item"><a class="pc-link" href="{% url 'hospitalizations_by_sex' %}">API de entrada por sexo</a></li>
+            {% else %}
+              {% if request.user.is_authenticated %}
+              <li class="pc-item"><a class="pc-link" href="{% url 'hospitalizations_by_month' %}">API de entrada por mês</a></li>
+              <li class="pc-item"><a class="pc-link" href="{% url 'hospitalizations_by_day' %}">API de entrada por dia</a></li>
+              <li class="pc-item"><a class="pc-link" href="{% url 'hospitalizations_by_sex' %}">API de entrada por sexo</a></li>
+              {% else %}
+              <p>Não tem acesso</p>
+              {% endif %}
+            {% endif %}
+          </ul>
         </li>
 
 

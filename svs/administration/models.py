@@ -10,6 +10,8 @@ class CustomUser(AbstractUser):
         unique=True, 
         validators=[RegexValidator(r'^\d{3}\.\d{3}\.\d{3}-\d{2}$', message="CPF inválido. Formato esperado: 000.000.000-00")]
     )
+    photo = models.FileField(upload_to='documentos/', null=True, blank=True)
+
     groups = models.ManyToManyField(
         Group,
         verbose_name='groups',

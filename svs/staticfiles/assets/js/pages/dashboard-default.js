@@ -129,7 +129,7 @@ function floatchart() {
       series: [
         {
           name: 'Investment',
-          data: [35, 125, 35, 35, 35, 80, 35, 20, 35, 45, 15, 75]
+          data: [30, 125, 35, 35, 35, 80, 35, 20, 35, 45, 15, 75]
         },
         {
           name: 'Loss',

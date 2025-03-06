@@ -20,10 +20,11 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('username', 'cpf', 'email', 'first_name', 'last_name', 'password1', 'password2'),
         }),
     )
+    search_fields = ('username', 'cpf', 'first_name', 'last_name')
     filter_vertical = ('user_permissions',)
     list_display = ('username', 'email', 'cpf', 'first_name', 'last_name', 'is_staff')
     search_fields = ('cpf', 'email', 'first_name', 'last_name')
-    ordering = ('cpf',)
+    ordering = ('username','cpf',)
     actions = None
 
 
